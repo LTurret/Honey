@@ -1,2 +1,0 @@
-# detecting copyboard
-
