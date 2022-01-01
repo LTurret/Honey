@@ -1,10 +1,6 @@
 import json
 import os
 
-def display(dataset):
-    for mass, amplitude in zip(dataset['mass'], dataset['amplitude']):
-        print(f"{mass}: {amplitude}")
-
 def makefile(dataset):
     with open("dataset.json", mode='w') as file:
         json.dump(dataset, file, indent=4)
@@ -15,26 +11,40 @@ def import_data(dataname:str = "List.txt"):
             return open(file, 'r', encoding="UTF-8")
 
 def main():
-    dataset = {"mass": [], "amplitude": []}
+    structure = {
+        "mass": {},
+        "amplitude": {}
+    }
+
     data = import_data("Real.txt")
     try:
         for line in data:
-            dataset['amplitude'].append(float(line.split('\t')[-1][:-1]))
-            dataset['mass'].append(line.split('\t')[0])
+            mass = line.split('\t')[0]
+            if mass not in structure:
+                structure['mass'].append(mass)
+                structure['amplitude'].append(
+                    mass = 
+                    {
+                        "value": float(line.split('\t')[-1][:-1])
+                    }
+                )
+            elif mass in structure:
+                structure['amplitude'][mass] = mass
         data.close()
-        makefile(dataset)
+
+        makefile(structure)
     except Exception as e:
         print(e)
-        pass 
+        return 0
 
 if __name__ == "__main__":
-    # main()
+    main()
 
-    for dirPath, dirNames, fileNames in os.walk("./data"):
-        path = f"{dirPath}/List.txt"
-        path = path.replace("\\", "/")
-        try:
-            with open(path, 'r') as file:
-                print(f'List on path: "{dirPath[7:]}" joins!')
-        except:
-            pass
+    # for dirPath, dirNames, fileNames in os.walk("./data"):
+    #     path = f"{dirPath}/List.txt"
+    #     path = path.replace("\\", "/")
+    #     try:
+    #         with open(path, 'r') as file:
+    #             print(f'List on path: "{dirPath[7:]}" joins!')
+    #     except:
+    #         pass
