@@ -5,46 +5,66 @@ def makefile(dataset):
     with open("dataset.json", mode='w') as file:
         json.dump(dataset, file, indent=4)
 
-def import_data(dataname:str = "List.txt"):
-    for file in os.listdir():
-        if file == dataname:
-            return open(file, 'r', encoding="UTF-8")
+def import_data(path:str):
+    return open(path, 'r', encoding="UTF-8")
 
-def main():
-    structure = {
-        "mass": {},
-        "amplitude": {}
-    }
+def sortion(payload):
+    items = payload.items()
+    sorted_items = sorted(items)
+    new_dict = {}
+    for key, value in sorted_items:
+        new_dict[key] = value
+    return new_dict
 
-    data = import_data("Real.txt")
+def read_data(data, structure:list):
     try:
         for line in data:
             mass = line.split('\t')[0]
-            if mass not in structure:
-                structure['mass'].append(mass)
-                structure['amplitude'].append(
-                    mass = 
-                    {
-                        "value": float(line.split('\t')[-1][:-1])
-                    }
-                )
-            elif mass in structure:
-                structure['amplitude'][mass] = mass
-        data.close()
 
-        makefile(structure)
+            # counter
+            if mass not in structure['times']:
+                structure['times'][mass] = 1
+            else:
+                structure['times'][mass] += 1
+
+            # make average
+            if mass not in structure['mass']:
+                structure['mass'].append(float(mass))
+                structure['amplitude'].append(float(line.split('\t')[-1][:-1]))
+            elif mass in structure['times']:
+                structure['amplitude'][mass] = (
+                    structure['amplitude'][mass]+ mass
+                    ) / structure['times'][mass]
+        data.close()
+        return structure
     except Exception as e:
         print(e)
-        return 0
+        return
+
+def main():
+    structure = {
+        "mass": [],
+        "amplitude": [],
+        "times": {}
+    }
+
+    folder = "./data"
+    for dirPath, _, _ in os.walk(folder):
+        path = f"{dirPath}/List.txt"
+        path = path.replace("\\", "/")
+        if (dirPath == folder):
+            pass
+        else:
+            try:
+                # print(f'List on path: "{dirPath[7:]}" joins!')
+                # print(path)
+                data = import_data(path)
+                structure = read_data(data, structure)
+            except Exception as e:
+                print(e)
+                pass
+    structure['times'] = sortion(structure['times'])
+    makefile(structure)
 
 if __name__ == "__main__":
     main()
-
-    # for dirPath, dirNames, fileNames in os.walk("./data"):
-    #     path = f"{dirPath}/List.txt"
-    #     path = path.replace("\\", "/")
-    #     try:
-    #         with open(path, 'r') as file:
-    #             print(f'List on path: "{dirPath[7:]}" joins!')
-    #     except:
-    #         pass

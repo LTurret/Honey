@@ -1,12 +1,6 @@
 data = {
-    "mass": {},
+    "mass": {100.0},
     "amplitude": {}
 }
 
-def check(data, key:str):
-    if key in data['mass']:
-        print(data['mass'][key])
-    else:
-        print("no data found")
-
-check(data, "meow")
+print(100 in data['mass'])
