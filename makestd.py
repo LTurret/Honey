@@ -1,5 +1,5 @@
-import json
-import os
+import json, os
+import numpy as np
 
 def makefile(dataset):
     with open("dataset.json", mode='w') as file:
@@ -8,34 +8,28 @@ def makefile(dataset):
 def import_data(path:str):
     return open(path, 'r', encoding="UTF-8")
 
-def sortion(payload):
-    items = payload.items()
-    sorted_items = sorted(items)
-    new_dict = {}
-    for key, value in sorted_items:
-        new_dict[key] = value
-    return new_dict
-
 def read_data(data, structure:list):
     try:
+        counter = 0
         for line in data:
-            mass = line.split('\t')[0]
+            counter += 1
+            # data format definition
+            mass = float(line.split('\t')[0])
+            amplitude = float(line.split('\t')[-1][:-1])
 
-            # counter
+            # times counter
             if mass not in structure['times']:
                 structure['times'][mass] = 1
             else:
                 structure['times'][mass] += 1
 
             # make average
-            if mass not in structure['mass']:
-                structure['mass'].append(float(mass))
-                structure['amplitude'].append(float(line.split('\t')[-1][:-1]))
+            if mass not in structure['set']:
+                structure['set'][mass] = amplitude
             elif mass in structure['times']:
-                structure['amplitude'][mass] = (
-                    structure['amplitude'][mass]+ mass
-                    ) / structure['times'][mass]
+                structure['set'][mass] = 0
         data.close()
+        print(counter)
         return structure
     except Exception as e:
         print(e)
@@ -43,28 +37,25 @@ def read_data(data, structure:list):
 
 def main():
     structure = {
-        "mass": [],
-        "amplitude": [],
-        "times": {}
+        "set": {},  # fullform of data
+        "times": {} # mass counter
     }
 
     folder = "./data"
+    tasks = []
     for dirPath, _, _ in os.walk(folder):
         path = f"{dirPath}/List.txt"
         path = path.replace("\\", "/")
-        if (dirPath == folder):
-            pass
-        else:
-            try:
-                # print(f'List on path: "{dirPath[7:]}" joins!')
-                # print(path)
-                data = import_data(path)
-                structure = read_data(data, structure)
-            except Exception as e:
-                print(e)
-                pass
-    structure['times'] = sortion(structure['times'])
-    makefile(structure)
+        tasks.append(path)
+    try:
+        for task in range(1, len(tasks)):
+            data = import_data(tasks[task])
+            structure = read_data(data, structure)
+            # print(len(structure))
+    except Exception as e:
+        print(e)
+        pass
+    # makefile(structure)
 
 if __name__ == "__main__":
     main()
