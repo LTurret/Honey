@@ -2,6 +2,6 @@
 Research of track honey source and species using a database.
 
 # 之後再想要寫什麼 先放著
-分類抓出tuple的最大、小值，在數據append的時候建立表格判斷tuple[0]出現的次數，再用次數去索取大小值 </b>
-table.count(tuple[0]) > 0  : 最小值 </b>
-table.count(tuple[0]) != 0 : 最大值
+分類抓出tuple的最大、小值，在數據append的時候建立表格判斷tuple[0]出現的次數，再用次數去索取大小值  
+table.count(tuple[0]) > 0 : 質量最大值  
+table.count(tuple[0]) = 0 : 質量最小值
