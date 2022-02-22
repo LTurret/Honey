@@ -13,15 +13,14 @@ def softopen(filename:str, openmode:str):
 
 def main():
     # create tasks that awaited be sort
-    mass_array=[]
-    amplitude_array=[]
-    tasks=[]
-    datas = [
+    tasks = [
         "List1",
         "List2"
     ]
-    for List in datas:
+    for List in tasks:
         data = softopen(List, "r")
+        mass_array=[]
+        amplitude_array=[]
         for line in data:
             mass = float(line.split('\t')[0])
             amplitude = float(line.split('\t')[-1][:-1])
@@ -29,15 +28,27 @@ def main():
             # arrays for plot
             mass_array.append(mass)
             amplitude_array.append(amplitude)
-            tasks.append((mass, amplitude))
         data.close() # file involk terminates here
 
-        plt.plot(mass_array, amplitude_array, color='b')
-        plt.xlabel('mass') # 設定x軸標題
-        plt.xticks(mass_array, rotation='vertical') # 設定x軸label以及垂直顯示
-        plt.title('honey') # 設定圖表標題
+        plt.rcParams["figure.figsize"] = (19.2, 10.8)
+        plt.plot(mass_array, amplitude_array, color="b")
+
+        # 設定x軸標題
+        plt.xlabel('mass') 
+
+        # 設定x軸label以及垂直顯示
+        plt.xticks(mass_array, rotation="vertical", fontsize=10)
+        
+        # 設定圖表標題
+        plt.title('honey') 
+
+        # 顯示圖表，需要GUI
         #plt.show()
-        plt.savefig(f"./output/{List}.png")
+
+        plt.savefig(f"./output/{List}.jpg")
+
+        # 清除圖表
+        plt.clf()
 
 if __name__ == "__main__":
     main()
