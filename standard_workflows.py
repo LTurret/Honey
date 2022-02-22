@@ -3,7 +3,7 @@ def softopen(filename:str, openmode:str):
     filename += ".txt" # file extension handler
     return open(filename, mode=openmode, encoding="utf-8")
 
-def fetch(datafile):
+def formatting(datafile):
     tasks = []
     for line in datafile:
 
@@ -17,13 +17,15 @@ def fetch(datafile):
     return tasks
 
 def main():
+    # first manifest
     datasets = []
     data = softopen("List", "r")
-    datasets.extend(fetch(data))
+    datasets.extend(formatting(data))
+
+    # second manifest
+    datasets = []
     data = softopen("List2", "r")
-    datasets.extend(fetch(data))
-    print(datasets)
-    # datasets.sort()
+    datasets.extend(formatting(data))
 
 if __name__ == "__main__":
     main()
