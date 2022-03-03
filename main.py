@@ -19,12 +19,12 @@ def formatting(datafile):
 def main():
     # first manifest
     datasets = []
-    data = softopen("List", "r")
+    data = softopen("./raw/List1", "r")
     datasets.extend(formatting(data))
 
     # second manifest
     datasets = []
-    data = softopen("List2", "r")
+    data = softopen("./raw/List2", "r")
     datasets.extend(formatting(data))
 
 if __name__ == "__main__":

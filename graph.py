@@ -14,8 +14,8 @@ def softopen(filename:str, openmode:str):
 def main():
     # create tasks that awaited be sort
     tasks = [
-        "List1",
-        "List2"
+        "./raw/List1",
+        "./raw/List2"
     ]
     for List in tasks:
         data = softopen(List, "r")
@@ -45,7 +45,7 @@ def main():
         # 顯示圖表，需要GUI
         #plt.show()
 
-        plt.savefig(f"./output/{List}.jpg")
+        plt.savefig(f"./output/{List[:-1]}.jpg")
 
         # 清除圖表
         plt.clf()
