@@ -29,7 +29,6 @@ def formatting(file):
         # create dict-like list for sorts
         tasks.append((mass, amplitude))
     file.close()
-    # fileoperations.save_exit(tasks, "List1_FORMATTED")
     return tasks
 
 def main():
