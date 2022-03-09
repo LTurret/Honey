@@ -9,3 +9,8 @@ table.count(tuple[0]) = 0 : 質量最小值
 # 害阿
 formatting()其實是要讓資料變成list去做排序的，不是拿來輸出圖片的 
 靠北啊，記得看註解==
+
+# 測試
+$O(1) = x^2$  
+$|\hat r| = 1$  
+$\oint\vec{E}\cdot\ d\vec{A}$ 

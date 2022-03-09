@@ -1,5 +1,7 @@
 import json
 
+from compare import std_sorting
+
 class fileoperations():
     # open file, terminate externally
     def softopen(filename:str, openmode:str):
@@ -29,6 +31,7 @@ def formatting(file):
         # create dict-like list for sorts
         tasks.append((mass, amplitude))
     file.close()
+    std_sorting(tasks)
     return tasks
 
 def main():
