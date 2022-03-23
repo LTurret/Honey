@@ -1,16 +1,15 @@
 # Honey
+
 Research of track honey source and species using a database.
 
 # 之後再想要寫什麼 先放著
+
 分類抓出tuple的最大、小值，在數據append的時候建立表格判斷tuple[0]出現的次數，再用次數去索取大小值  
 table.count(tuple[0]) > 0 : 質量最大值  
 table.count(tuple[0]) = 0 : 質量最小值
 
-# 害阿
-formatting()其實是要讓資料變成list去做排序的，不是拿來輸出圖片的 
-靠北啊，記得看註解==
+# 目標
 
-# 測試
-$O(1) = x^2$  
-$|\hat r| = 1$  
-$\oint\vec{E}\cdot\ d\vec{A}$ 
+- [x] 使用`Series`並建立索引表
+- [ ] 使用`Series`整理並將相同`mass`的強度用`List`包起來
+- [ ] 將所有`mass`的強度取出並設計**比對百分比**，製作有效比對模型
