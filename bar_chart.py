@@ -30,24 +30,15 @@ def main():
         data.close() # file involk terminates here
 
         plt.rcParams["figure.figsize"] = (19.2, 10.8)
-        plt.plot(mass_array, amplitude_array, color="b")
-
-        # 設定x軸標題
-        plt.xlabel('mass') 
-
-        # 設定x軸label以及垂直顯示
-        plt.xticks(mass_array, rotation="vertical", fontsize=10)
-        
-        # 設定圖表標題
-        plt.title('honey') 
-
-        # 顯示圖表，需要GUI
+        plt.bar(
+            [1, 2, 3],
+            [1, 2, 3],
+            width=0.5,
+            bottom=None,
+            align='center',
+            )
+        plt.xticks(rotation='vertical')
         plt.show()
-
-        plt.savefig("sample.jpg")
-
-        # 清除圖表
-        plt.clf()
 
 if __name__ == "__main__":
     main()
